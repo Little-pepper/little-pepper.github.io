@@ -16,23 +16,23 @@
   <meta name="author" content="pepper">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Vulhub靶场学习路线-全纪录">
+    <meta name="description" content="vulnhub靶场学习路线-全纪录">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vulhub-Mr.Robot">
+<meta property="og:title" content="vulnhub-Mr.Robot">
 <meta property="og:url" content="http://example.com/2022/03/29/vulhub-Mr.robot/index.html">
 <meta property="og:site_name" content="Pepper&#39;s home">
-<meta property="og:description" content="Vulhub靶场学习路线-全纪录">
+<meta property="og:description" content="vulnhub靶场学习路线-全纪录">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/微信图片_20220408161044.jpg">
 <meta property="article:published_time" content="2022-03-29T08:07:53.000Z">
-<meta property="article:modified_time" content="2022-04-11T10:00:26.194Z">
+<meta property="article:modified_time" content="2022-04-12T09:51:24.266Z">
 <meta property="article:author" content="pepper">
 <meta property="article:tag" content="靶场练习">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/微信图片_20220408161044.jpg">
   
   
-  <title>Vulhub-Mr.Robot - Pepper&#39;s home</title>
+  <title>vulnhub-Mr.Robot - Pepper&#39;s home</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -166,7 +166,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Vulhub-Mr.Robot">
+            <span class="h2" id="subtitle" title="vulnhub-Mr.Robot">
               
             </span>
 
@@ -225,11 +225,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Vulhub-Mr.Robot</h1>
+            <h1 style="display: none">vulnhub-Mr.Robot</h1>
             
             <div class="markdown-body">
               <h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1.写在前面"></a>1.写在前面</h3><blockquote>
-<p>计划按照OSCP的学习路线，从头开始学习并复现Vulhub的靶场环境，在此进行记录</p>
+<p>计划按照OSCP的学习路线，从头开始学习并复现vulnhub的靶场环境，在此进行记录</p>
 <p>Mr.robot其实是个美剧，之前看过一些，算是脑洞大开的一类，除此之外还有 《硅谷》，都是比较出众的IT类型影视剧。</p>
 </blockquote>
 <h3 id="2-知识点速记"><a href="#2-知识点速记" class="headerlink" title="2.知识点速记"></a>2.知识点速记</h3><ul>
@@ -241,8 +241,8 @@
 <li>基础Linux知识</li>
 </ul>
 <hr>
-<h3 id="3-环境配置"><a href="#3-环境配置" class="headerlink" title="3.环境配置"></a>3.环境配置</h3><p>直接去Vulhub官网下载对应的ova文件即可，然后拖入vmware。这里为了方便宿主机与靶机通讯，将虚拟机的网络模式设置为了<strong>NAT</strong>模式</p>
-<p>Win10 宿主机、kali2020 攻击机、vulhub靶机 </p>
+<h3 id="3-环境配置"><a href="#3-环境配置" class="headerlink" title="3.环境配置"></a>3.环境配置</h3><p>直接去vulnhub官网下载对应的ova文件即可，然后拖入vmware。这里为了方便宿主机与靶机通讯，将虚拟机的网络模式设置为了<strong>NAT</strong>模式</p>
+<p>Win10 宿主机、kali2020 攻击机、vulnhub靶机 </p>
 <h3 id="4-信息收集"><a href="#4-信息收集" class="headerlink" title="4.信息收集"></a>4.信息收集</h3><p>环境配置好后，首先确认一下IP，在kali上查看当前IP为 192.168.114.128</p>
 <p>对当前网段的主机进行扫描，可使用的命令如下：</p>
 <figure class="highlight apache"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -R <span class="hljs-number">192.168.114.0</span>/<span class="hljs-number">24</span><br><span class="hljs-attribute">arp</span>-scan <span class="hljs-number">192.168.114.0</span>/<span class="hljs-number">24</span> (同个网段，内网嗅探)<br></code></pre></div></td></tr></table></figure>
@@ -254,7 +254,7 @@
 <p>找到目标靶机并确认开启了80，443端口。</p>
 <h3 id="5-目录扫描"><a href="#5-目录扫描" class="headerlink" title="5.目录扫描"></a>5.目录扫描</h3><p>访问网站，是一个虚拟终端的动画展示（无法执行命令）。除此外没有得到其他有用信息，也无链接可以跳转。</p>
 <p>于是尝试进行目录爆破，使用工具kali下的<code>gobuster</code></p>
-<p><code>gobuster dir -w /home/wanghao/vulhub/Dir.txt  -u http://192.168.114.129 -t 20 -o test.txt</code></p>
+<p><code>gobuster dir -w /home/wanghao/vulnhub/Dir.txt  -u http://192.168.114.129 -t 20 -o test.txt</code></p>
 <img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1648873626300.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
 
 <p>当然方式有很多，Kali下还有自带的<code>dirb</code> <code>dirb https://192.168.114.129/  </code></p>
@@ -363,7 +363,7 @@
                     
                       <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/Vulhub%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">Vulhub靶场练习</a>
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/vulnhub%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">vulnhub靶场练习</a>
                     
                   </div>
                 
@@ -381,6 +381,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/04/12/vulhub-DC1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">vulnhub-DC系列1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
